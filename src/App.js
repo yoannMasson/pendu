@@ -37,19 +37,27 @@ class App extends Component{
 
   resetGame = () =>{
     this.setState(DEFAULT_STATE)
+    this.setState ({
+      secret: RandomWords().toLocaleUpperCase()
+    })
   }
 
   handleClickOnChar = char => {
     if(this.state.nbTryLeft > 0){
+      if(!this.state.secret.includes(char)){
+        this.setState ({ 
+          nbTryLeft: this.state.nbTryLeft-1 
+        })
+      }
       this.setState ({ 
-        nbTryLeft: this.state.nbTryLeft-1,
         usedLetters: [...this.state.usedLetters,char.char]
       })
     }
   }
+
+
   // Produit une représentation textuelle de l’état de la partie,
   // chaque lettre non découverte étant représentée par un _underscore_.
-  // (CSS assurera de l’espacement entre les lettres pour mieux// visualiser le tout).
   computeDisplay(phrase, usedLetters) {  
     return phrase.replace(/\w/g,    (letter) => (usedLetters.includes(letter) ? letter : '_ ')  )
   }   
