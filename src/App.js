@@ -44,14 +44,17 @@ class App extends Component{
 
   handleClickOnChar = char => {
     if(this.state.nbTryLeft > 0){
-      if(!this.state.secret.includes(char)){
+      if(!this.state.secret.includes(char.char)){
         this.setState ({ 
-          nbTryLeft: this.state.nbTryLeft-1 
+          nbTryLeft: this.state.nbTryLeft-1 ,
+          usedLetters: [...this.state.usedLetters,char.char]
+        })
+      }else{
+        this.setState ({ 
+          usedLetters: [...this.state.usedLetters,char.char]
         })
       }
-      this.setState ({ 
-        usedLetters: [...this.state.usedLetters,char.char]
-      })
+     
     }
   }
 
